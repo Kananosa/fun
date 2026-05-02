@@ -16,7 +16,12 @@
 
   * {
     box-sizing: content-box;
-    /* Force every single element onto its own GPU layer. RIP VRAM. */
+  }
+  /* Force every element onto its own GPU layer — but NOT html/body,
+     because a transform on an ancestor becomes the containing block
+     for position:fixed descendants, which made the warning screen
+     resolve its 100%/100% against a zero-sized body and collapse. */
+  *:not(html):not(body) {
     transform: translateZ(0);
     will-change: transform, filter, opacity, backdrop-filter;
   }
