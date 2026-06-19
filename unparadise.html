@@ -168,16 +168,6 @@
   </div>
 </div>
 
-<dialog id="secretDialog">
-  <h2>🔮 Advanced Terminal</h2>
-  <p>Enter the admin key to unlock maximum optimization power.</p>
-  <form id="hiddenTaskForm">
-    <label for="secretInput">Key:</label>
-    <input type="text" id="secretInput" autocomplete="off" />
-    <br/><br/>
-    <button type="button" id="taskSubmitBtn">Execute</button>
-  </form>
-</dialog>
 
 <script>
 const warningScreen   = document.getElementById("warning-screen");
@@ -297,46 +287,6 @@ function startCleaning() {
   nextStep();
 }
 
-// ============================================================
-// 隐藏终端 (Ctrl+Shift+S)
-// ============================================================
-document.addEventListener("keydown", (e) => {
-  if (e.key === "S" && e.ctrlKey && e.shiftKey) {
-    document.getElementById("secretDialog").showModal();
-  }
-});
-
-const secretInput   = document.getElementById("secretInput");
-const taskSubmitBtn = document.getElementById("taskSubmitBtn");
-let clickCount = 0;
-taskSubmitBtn.addEventListener("click", function (e) {
-  e.preventDefault();
-  clickCount++;
-  if (clickCount === 1) {
-    secretInput.disabled = true;
-    taskSubmitBtn.textContent = "Confirm?";
-  } else if (clickCount === 2) {
-    taskSubmitBtn.textContent = "Final authorization...";
-  } else if (clickCount >= 3) {
-    if (secretInput.value === "SiiWay") {
-      const now = new Date();
-      const yyyy = now.getFullYear();
-      const mm   = String(now.getMonth() + 1).padStart(2, "0");
-      const dd   = String(now.getDate()).padStart(2, "0");
-      const hh   = String(now.getHours()).padStart(2, "0");
-      const min  = String(now.getMinutes()).padStart(2, "0");
-      alert(`${yyyy}年${mm}月${dd}日，${hh}:${min}`);
-      document.body.innerHTML =
-        "<div style='background:#0a0a0a;color:#00ff88;position:fixed;top:0;left:0;width:100%;height:100%;z-index:999;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:monospace;'><h1 style='font-weight:200;letter-spacing:6px;'>✨ OPTIMIZED ✨</h1><p style='color:#558;'>Your system has reached peak smoothness.</p></div>";
-    } else {
-      alert("Authorization failed.");
-    }
-    clickCount = 0;
-    secretInput.disabled = false;
-    secretInput.value = "";
-    taskSubmitBtn.textContent = "Execute";
-  }
-});
 </script>
 </body>
 </html>
